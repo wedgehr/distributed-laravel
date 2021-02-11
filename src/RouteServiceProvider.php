@@ -3,7 +3,6 @@
 namespace Optimus\Api\System;
 
 use Illuminate\Routing\Router;
-use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -28,12 +27,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->registerAssets();
 
-        // FIXME: once are on 8.x, we can drop this check
-        if (strpos(Application::VERSION, '8') === 0) {
-            $this->booted(function () {
-                $this->loadRoutes();
-            });
-        }
+        $this->booted(function () {
+            $this->loadRoutes();
+        });
     }
 
     /**
