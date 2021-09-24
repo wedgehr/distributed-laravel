@@ -28,7 +28,11 @@ class RouteServiceProvider extends ServiceProvider
         $this->registerAssets();
 
         $this->booted(function () {
-            $this->loadRoutes();
+            if ($this->routesAreCached() && $this->app->configurationIsCached()) {
+                $this->loadCachedRoutes();
+            } else {
+                $this->loadRoutes();
+            }
         });
     }
 
